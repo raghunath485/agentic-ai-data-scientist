@@ -172,6 +172,13 @@ with st.sidebar:
             st.session_state["dataset_name"] = "sample_churn.csv"
             st.success("Telecom Churn Teleported!")
 
+    if st.button("🔄 Reset State & Clear Cache", use_container_width=True):
+        st.session_state.state = None
+        st.session_state.chat_messages = []
+        st.session_state.repl_history = []
+        st.session_state.optuna_results = None
+        st.rerun()
+
     st.markdown("---")
     st.markdown("""
     <div style='font-size:0.75rem; color:#64748b; line-height:1.5;'>
@@ -281,8 +288,27 @@ if df_current is not None:
     # Results Master Layout
     if st.session_state.state is not None:
         state: DataScienceState = st.session_state.state
-        best_res = state.model_results[state.best_model_name]
-        is_classif = "classification" in state.problem_type
+
+        # Self-healing attribute guard for session backward-compatibility
+        if not hasattr(state, "forensics_summary") or state.forensics_summary is None:
+            state.forensics_summary = {}
+        if not hasattr(state, "label_encoder"):
+            state.label_encoder = None
+        if not hasattr(state, "agent_logs") or state.agent_logs is None:
+            state.agent_logs = []
+        if not hasattr(state, "profiling_summary") or state.profiling_summary is None:
+            state.profiling_summary = {}
+        if not hasattr(state, "model_results") or state.model_results is None:
+            state.model_results = {}
+
+        best_model_name = getattr(state, "best_model_name", None)
+        best_res = state.model_results.get(best_model_name) if best_model_name else None
+        if best_res is None and state.model_results:
+            best_model_name = list(state.model_results.keys())[0]
+            best_res = state.model_results[best_model_name]
+            state.best_model_name = best_model_name
+
+        is_classif = "classification" in str(getattr(state, "problem_type", ""))
 
         tabs = st.tabs([
             "🌐 Neural Command Center",
@@ -516,7 +542,7 @@ result = grouped
         # -----------------------------------------------------------------
         with tabs[5]:
             st.markdown("### 🧬 2D Latent Forensics & Synthetic Minority Class Balancer")
-            forensics = state.forensics_summary
+            forensics = getattr(state, "forensics_summary", {}) or {}
             if forensics and "projection_df" in forensics:
                 st.plotly_chart(px.scatter(
                     forensics["projection_df"], x="PCA_Dim_1", y="PCA_Dim_2", color="Status",
