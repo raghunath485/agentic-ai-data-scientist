@@ -20,6 +20,9 @@ plotly>=5.20.0
 # LLM Providers & Connectivity
 google-genai>=0.1.0
 requests>=2.28.0
-
-# Optional: External LLM & Gradient Boosting extensions
 openai>=1.12.0
+
+# Advanced Explainability & Hyperparameter Optimization
+shap>=0.45.0
+optuna>=3.6.0
+openpyxl>=3.1.0
