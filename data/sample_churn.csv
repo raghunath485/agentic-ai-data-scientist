@@ -1,0 +1,41 @@
+customerID,gender,SeniorCitizen,tenure,MonthlyCharges,TotalCharges,Contract,PaymentMethod,Churn
+7590-VHVEG,Female,0,1,29.85,29.85,Month-to-month,Electronic check,No
+5575-GNVDE,Male,0,34,56.95,1889.5,One year,Mailed check,No
+3668-QPYBK,Male,0,2,53.85,108.15,Month-to-month,Mailed check,Yes
+7795-CFOCW,Male,0,45,42.30,1840.75,One year,Bank transfer,No
+9237-HQITU,Female,0,2,70.70,151.65,Month-to-month,Electronic check,Yes
+9305-CDSKC,Female,0,8,99.65,820.5,Month-to-month,Electronic check,Yes
+1452-KIOVK,Male,0,22,89.10,1949.4,Month-to-month,Credit card,No
+6713-OKOMC,Female,0,10,29.75,301.9,Month-to-month,Mailed check,No
+7892-POOKP,Female,0,28,104.80,3046.05,Month-to-month,Electronic check,Yes
+6388-TABGU,Male,0,62,56.15,3487.95,One year,Bank transfer,No
+9763-GRSKD,Male,0,13,49.95,587.45,Month-to-month,Mailed check,No
+7469-LKBCI,Male,0,16,18.95,326.8,Two year,Credit card,No
+8091-TTVAX,Male,0,58,100.35,5681.1,One year,Credit card,No
+5129-JFDZT,Female,0,45,103.20,4779.45,One year,Bank transfer,No
+3655-SNQYZ,Female,0,69,113.25,7895.15,Two year,Credit card,No
+5192-EBGOV,Female,1,10,85.70,868.35,Month-to-month,Electronic check,Yes
+8191-XWSZG,Female,0,52,20.65,1022.95,One year,Mailed check,No
+9959-WOFSC,Male,0,71,106.70,7382.25,Two year,Bank transfer,No
+4183-MYFRB,Female,0,21,90.05,1862.9,Month-to-month,Electronic check,No
+8779-QRDMV,Male,1,1,39.65,39.65,Month-to-month,Electronic check,Yes
+1066-JKSGK,Male,0,1,20.15,20.15,Month-to-month,Mailed check,Yes
+6467-CHFZW,Male,0,47,99.35,4749.15,Month-to-month,Electronic check,Yes
+8665-UTDHZ,Male,0,1,30.20,30.20,Month-to-month,Electronic check,Yes
+7010-BRBUU,Female,0,72,24.10,1734.65,Two year,Credit card,No
+6583-QVIYV,Female,0,10,79.95,830.85,Month-to-month,Bank transfer,No
+4929-XIHVW,Male,1,2,95.50,181.65,Month-to-month,Credit card,Yes
+3666-PBEGB,Male,0,25,45.30,1138.8,Month-to-month,Bank transfer,No
+4976-FOKAR,Female,0,48,60.20,2911.8,Two year,Mailed check,No
+8920-KSVLI,Male,0,26,35.75,1028.75,Month-to-month,Bank transfer,No
+8095-EXPAL,Female,0,22,19.45,417.85,Month-to-month,Mailed check,No
+1234-ABCD1,Female,0,3,74.50,223.5,Month-to-month,Electronic check,Yes
+1234-ABCD2,Male,0,40,88.20,3528.0,One year,Credit card,No
+1234-ABCD3,Female,1,6,92.10,552.6,Month-to-month,Electronic check,Yes
+1234-ABCD4,Male,0,55,105.40,5797.0,Two year,Bank transfer,No
+1234-ABCD5,Female,0,12,65.30,783.6,Month-to-month,Mailed check,No
+1234-ABCD6,Male,1,4,80.00,320.0,Month-to-month,Electronic check,Yes
+1234-ABCD7,Female,0,60,25.00,1500.0,Two year,Bank transfer,No
+1234-ABCD8,Male,0,18,50.50,909.0,One year,Mailed check,No
+1234-ABCD9,Female,0,32,102.30,3273.6,Month-to-month,Credit card,Yes
+1234-ABCD0,Male,0,70,115.00,8050.0,Two year,Credit card,No
