@@ -391,7 +391,7 @@ if df_current is not None:
 
             sim_result = WhatIfSimulator.simulate_record(
                 payload=input_payload, model=state.best_pipeline, preprocessor=state.preprocessor,
-                label_encoder=state.label_encoder, problem_type=state.problem_type
+                label_encoder=getattr(state, "label_encoder", None), problem_type=state.problem_type
             )
 
             s_col1, s_col2 = st.columns([1, 1])

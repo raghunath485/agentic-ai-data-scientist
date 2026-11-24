@@ -77,3 +77,7 @@ class DataScienceState:
             timestamp=datetime.now().strftime("%H:%M:%S")
         )
         self.agent_logs.append(entry)
+
+    def __getattr__(self, name: str):
+        """Fallback for any attribute added across session reloads."""
+        return None
