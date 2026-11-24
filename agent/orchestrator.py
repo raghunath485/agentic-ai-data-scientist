@@ -11,6 +11,7 @@ from engine.profiler import DataProfiler
 from engine.cleaner import DataCleaner
 from engine.modeler import ModelTrainer
 from engine.reporter import ReportGenerator
+from engine.forensics import DataForensics
 from agent.llm_client import AgentLLMClient
 
 
@@ -71,14 +72,22 @@ class DataScientistAgent:
         state.y_train = clean_res["y_train"]
         state.y_test = clean_res["y_test"]
         state.preprocessor = clean_res["preprocessor"]
+        state.label_encoder = clean_res["label_encoder"]
         state.numerical_cols = clean_res["numerical_features"]
         state.categorical_cols = clean_res["categorical_features"]
         state.dropped_cols = clean_res["dropped_features"]
 
+        # Run Latent 2D Manifold & Unsupervised Anomaly Forensics
+        try:
+            forensics_res = DataForensics.scan_anomalies_and_project(df, target_column=target_column)
+            state.forensics_summary = forensics_res
+        except Exception:
+            state.forensics_summary = {}
+
         state.log_step(
             step_name="Data Cleaning & Feature Engineering",
             thought=agent_thought,
-            action="Applied ColumnTransformer (Median/Mode imputation + StandardScaler + OneHotEncoder) strictly on train split.",
+            action="Applied ColumnTransformer (Median/Mode imputation + StandardScaler + OneHotEncoder) strictly on train split. Executed Isolation Forest anomaly scan & PCA 2D projection.",
             output="\n".join([f"• {act}" for act in clean_res["cleaning_actions"]])
         )
 

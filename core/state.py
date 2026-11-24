@@ -43,6 +43,7 @@ class DataScienceState:
     
     # Preprocessor pipeline
     preprocessor: Optional[Any] = None
+    label_encoder: Optional[Any] = None
     
     # Processed splits
     X_train: Optional[pd.DataFrame] = None
@@ -55,8 +56,9 @@ class DataScienceState:
     best_model_name: Optional[str] = None
     best_pipeline: Optional[Any] = None
     
-    # EDA profiling cache
+    # EDA & Forensics cache
     profiling_summary: Dict[str, Any] = field(default_factory=dict)
+    forensics_summary: Dict[str, Any] = field(default_factory=dict)
     
     # Generated outputs
     executive_report: Optional[str] = None
