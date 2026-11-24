@@ -28,10 +28,14 @@ class MultiSourceIngestor:
             try:
                 df = pd.read_csv(file_buffer_or_path)
             except Exception:
-                # Try semicolon / tab delimiter fallback
-                if hasattr(file_buffer_or_path, "seek"):
-                    file_buffer_or_path.seek(0)
-                df = pd.read_csv(file_buffer_or_path, sep=None, engine='python')
+                try:
+                    if hasattr(file_buffer_or_path, "seek"):
+                        file_buffer_or_path.seek(0)
+                    df = pd.read_csv(file_buffer_or_path, sep=None, engine='python')
+                except Exception:
+                    if hasattr(file_buffer_or_path, "seek"):
+                        file_buffer_or_path.seek(0)
+                    df = pd.read_csv(file_buffer_or_path, encoding="latin1")
 
         elif ext in [".xlsx", ".xls"]:
             xl = pd.ExcelFile(file_buffer_or_path)

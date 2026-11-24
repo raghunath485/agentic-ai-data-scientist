@@ -11,10 +11,12 @@ class SlideDeckGenerator:
     @staticmethod
     def generate_html_deck(state: DataScienceState) -> str:
         """Constructs a responsive dark-mode cyber presentation slide deck."""
-        profile = state.profiling_summary
-        best_name = state.best_model_name
-        best_res = state.model_results.get(best_name) if best_name else None
+        profile = getattr(state, "profiling_summary", {}) or {}
+        best_name = getattr(state, "best_model_name", None)
+        model_results = getattr(state, "model_results", {}) or {}
+        best_res = model_results.get(best_name) if best_name else None
         metric_str = ", ".join([f"{k}: {v}" for k, v in (best_res.metrics.items() if best_res else []) if k != "Confusion Matrix" and v is not None])
+        prob_type_str = str(getattr(state, "problem_type", "")).replace('_', ' ').title()
 
         return f"""<!DOCTYPE html>
 <html lang="en">
@@ -123,7 +125,7 @@ class SlideDeckGenerator:
             <span class="badge">EXECUTIVE INVESTIGATION BRIEFING</span>
             <h1>Autonomous AI Data Science Findings</h1>
             <p>Dataset Artifact: <code>{state.file_name or 'Uploaded Data'}</code></p>
-            <p>Target Objective: <b>{state.target_column}</b> ({state.problem_type.replace('_', ' ').title()})</p>
+            <p>Target Objective: <b>{state.target_column}</b> ({prob_type_str})</p>
             <div class="kpi-grid">
                 <div class="kpi-card">
                     <div class="kpi-val">{profile.get('health_score', 100)}/100</div>

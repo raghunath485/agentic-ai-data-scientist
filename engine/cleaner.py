@@ -59,11 +59,17 @@ class DataCleaner:
                 cleaning_actions.append(f"Dropped zero-variance constant column '{col}'.")
                 continue
 
-            # Check potential high-cardinality ID column
+            # Check potential high-cardinality or sequential ID column
             is_num = pd.api.types.is_numeric_dtype(df_work[col])
+            col_lower = str(col).lower()
+            is_id_named = col_lower in ["id", "uuid", "guid", "row_id", "rowid"] or col_lower.endswith("_id") or col_lower.startswith("id_") or col_lower.endswith("id")
+
             if not is_num and n_unique > (len(df_work) * 0.7) and len(df_work) > 50:
                 cols_to_drop.append(col)
                 cleaning_actions.append(f"Dropped high-cardinality identifier column '{col}' ({n_unique} unique strings).")
+            elif is_num and is_id_named and n_unique > (len(df_work) * 0.9) and len(df_work) > 50:
+                cols_to_drop.append(col)
+                cleaning_actions.append(f"Dropped sequential identifier column '{col}' ({n_unique} unique IDs).")
 
         if cols_to_drop:
             df_work = df_work.drop(columns=cols_to_drop)

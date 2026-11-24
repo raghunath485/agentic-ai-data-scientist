@@ -27,6 +27,11 @@ class ModelExplainer:
             X_trans_rec = preprocessor.transform(input_record_df)
             X_trans_bg = preprocessor.transform(background_sample_df.head(50))
 
+            if hasattr(X_trans_rec, "toarray"):
+                X_trans_rec = X_trans_rec.toarray()
+            if hasattr(X_trans_bg, "toarray"):
+                X_trans_bg = X_trans_bg.toarray()
+
             # If tree ensemble
             if hasattr(model, "feature_importances_") and hasattr(model, "estimators_"):
                 import shap
@@ -47,7 +52,10 @@ class ModelExplainer:
                 coefs = model.coef_[0] if model.coef_.ndim > 1 else model.coef_
                 diff = X_trans_rec[0] - np.mean(X_trans_bg, axis=0)
                 vals = coefs * diff
-                base_value = float(model.intercept_[0]) if hasattr(model, "intercept_") and isinstance(model.intercept_, (list, np.ndarray)) else 0.0
+                if hasattr(model, "intercept_"):
+                    base_value = float(model.intercept_[0]) if hasattr(model.intercept_, "__getitem__") else float(model.intercept_)
+                else:
+                    base_value = 0.0
             
             # Fallback permutation heuristic attribution
             else:

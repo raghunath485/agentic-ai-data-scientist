@@ -39,6 +39,24 @@ from engine.balancer import DataBalancer
 from engine.slide_deck import SlideDeckGenerator
 
 # Page config
+# -------------------------------------------------
+# LLM Provider Configuration
+# -------------------------------------------------
+# Expected environment variables:
+#   AGY_LLM_PROVIDER – one of {"openai", "google", "anthropic"}
+#   AGY_LLM_API_KEY  – the API key for the selected provider
+# If not set, we fall back to the builtin Google GenAI client (free tier).
+
+provider_code = os.getenv("AGY_LLM_PROVIDER", "google")
+api_key = os.getenv("AGY_LLM_API_KEY", "")
+
+_supported_providers = {"openai", "google", "anthropic"}
+if provider_code not in _supported_providers:
+    st.warning(
+        f"Unsupported LLM provider '{provider_code}'. Falling back to default provider 'google'."
+    )
+    provider_code = "google"
+
 st.set_page_config(
     page_title="NEURAL DATA SCIENTIST // v2.0",
     page_icon="🌌",
