@@ -1,0 +1,2 @@
+# Redirect / alias to requirements.txt
+-r requirements.txt
